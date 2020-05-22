@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container">
+      <MixinValidation class="sample" />
+      <CompositionApiValidation class="sample" />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MixinValidation from './components/MixinValidation.vue'
+import CompositionApiValidation from './components/CompositionApiValidation.vue'
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    MixinValidation,
+    CompositionApiValidation
   }
 }
 </script>
@@ -24,5 +27,16 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+
+}
+
+.container {
+  display: flex;
+}
+.sample {
+  width: 50%;
+}
+.error {
+  color: red;
 }
 </style>
