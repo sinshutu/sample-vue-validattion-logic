@@ -3,25 +3,38 @@
     <h3>MixinValidation</h3>
 
     <div>
-      <lebel>
-        <input v-model="userName">
-        <div class="error">{{ validatonMessages }}</div>
-      </lebel>
+      <label>
+        <input v-model="account.name">
+        <div v-if="allFormIsValid" class="error">エラー</div>
+      </label>
+      <label>
+        <input v-model="account.email">
+        <div v-if="allFormIsValid" class="error">エラー</div>
+      </label>
     </div>
   </div>
 </template>
 
 <script>
+import NameValidation from '@/mixins/name.js';
+
 export default {
+  mixins: [
+    NameValidation
+  ],
   data() {
     return {
-      userName: "suzuki"
+      account: {
+        name: "suzuki",
+        email: "suzuki.naoto@teamup.jp"
+      }
     }
   },
   computed: {
-    validatonMessages(){
-      return "エラー";
-    }
+    allFormIsValid() {
+      return this.validateName(this.account.name)
+        && this.validateEmail(this.account.email);
+    },
   }
 }
 </script>

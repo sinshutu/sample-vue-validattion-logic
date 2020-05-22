@@ -3,25 +3,44 @@
     <h3>CompositionApiValidation</h3>
 
     <div>
-      <lebel>
-        <input v-model="userName">
-        <div class="error">{{ validatonMessages }}</div>
-      </lebel>
+      <label>
+        <input v-model="account.name">
+        <div v-if="allFormIsValid" class="error">エラー</div>
+      </label>
+      <label>
+        <input v-model="account.email">
+        <div v-if="allFormIsValid" class="error">エラー</div>
+      </label>
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import Vue from 'vue'
+import VueCompositionApi, { defineComponent } from '@vue/composition-api'
+import useValidation from '@/functions/validation.js'
+
+Vue.use(VueCompositionApi);
+
+export default defineComponent({
+  setup() {
+    const validation = useValidation();
+
+    return { validation };
+  },
   data() {
     return {
-      userName: "suzuki"
+      account: {
+        name: "suzuki",
+        email: "suzuki.naoto@teamup.jp"
+      }
     }
   },
   computed: {
-    validatonMessages(){
-      return "エラー";
+    allFormIsValid(){
+      return this.validation.validateName(this.account.name)
+        && this.validation.validateEmail(this.account.email);
     }
   }
-}
+})
 </script>
